@@ -1,3 +1,7 @@
+import {AuthenticationComponent} from '@loopback/authentication';
+import {
+  JWTAuthenticationComponent, UserServiceBindings
+} from '@loopback/authentication-jwt';
 import {BootMixin} from '@loopback/boot';
 import {ApplicationConfig} from '@loopback/core';
 import {RepositoryMixin} from '@loopback/repository';
@@ -8,7 +12,14 @@ import {
 } from '@loopback/rest-explorer';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
+import {MongodbDataSource} from './datasources';
 import {MySequence} from './sequence';
+
+
+
+
+
+
 
 export {ApplicationConfig};
 
@@ -17,6 +28,8 @@ export class CastApiApplication extends BootMixin(
 ) {
   constructor(options: ApplicationConfig = {}) {
     super(options);
+
+    // testsete
 
     // Set up the custom sequence
     this.sequence(MySequence);
@@ -40,5 +53,9 @@ export class CastApiApplication extends BootMixin(
         nested: true,
       },
     };
+
+    this.component(AuthenticationComponent);
+    this.component(JWTAuthenticationComponent);
+    this.dataSource(MongodbDataSource, UserServiceBindings.DATASOURCE_NAME);
   }
 }

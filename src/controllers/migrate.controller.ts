@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import {repository} from '@loopback/repository';
 import {
   get, getModelSchemaRef, response
@@ -5,12 +6,14 @@ import {
 import {Categoria} from '../models';
 import {CategoriaRepository} from '../repositories';
 
+
 export class MigrateController {
   constructor(
     @repository(CategoriaRepository)
     public categoriaRepository : CategoriaRepository,
   ) {}
 
+  @authenticate('jwt')
   @get('/migrate/execute')
   @response(200, {
     description: 'Executa seeds',
