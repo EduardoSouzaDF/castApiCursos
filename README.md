@@ -1,75 +1,52 @@
-# new
+# LoopBack IBM
 
-This application is generated using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the
-[initial project layout](https://loopback.io/doc/en/lb4/Loopback-application-layout.html).
+Essa aplicação foi gerada usando [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html)
+com base em
+[layot de projeto gerado ple cli](https://loopback.io/doc/en/lb4/Loopback-application-layout.html).
 
-## Install dependencies
+# MongoDB
 
-By default, dependencies were installed when this application was generated.
-Whenever dependencies in `package.json` are changed, run the following command:
+Estou usando uma instância do mongoDb Atlas, não sendo necessário
+instalar o mongoDB para usar, mas caso queiram mudar o arquivo de configuração
+src\datasources\mongodb.datasource.ts
 
-```sh
+## Instalando dependências
+
+```
 npm install
 ```
 
-To only install resolved dependencies in `package-lock.json`:
+## Rodando a aplicação
 
-```sh
-npm ci
-```
-
-## Run the application
+aplicação já está com watch nas dependências para dev,, hot reload
 
 ```sh
 npm start
 ```
 
-You can also run `node .` to skip the build step.
+Abra http://127.0.0.1:3000/explorer/ no navegador
 
-Open http://127.0.0.1:3000 in your browser.
+## Inserção de categorias
 
-## Rebuild the project
+realizei uma rota de api para realização dos seeds, apesar de a versão 4
+ser relativamente nova ainda não olhei a questão dos seeds pois somente
+está desenvolvido a parte de migrations pelo Loopback
 
-To incrementally build the project:
+## Scripts de banco de dados
 
-```sh
-npm run build
-```
+Mongo não necessita de collections previamente criadas para se trabalhar
+ele cria as collections automaticamente em tempo de execução, da mesma forma
+com migrations, no caso de adicionar colunas ele as cria em tempo de execução
+ou melhor tudo é JSON
 
-To force a full build by cleaning up cached artifacts:
+Porém fiz um EER que está em : src/obs/banco_EER_mysl.mwb [ mysl workbench abre]
 
-```sh
-npm run rebuild
-```
+## Resumindo o MVC do LoopBack
 
-## Fix code style and formatting issues
-
-```sh
-npm run lint
-```
-
-To automatically fix such issues:
-
-```sh
-npm run lint:fix
-```
-
-## Other useful commands
-
-- `npm run migrate`: Migrate database schemas for models
-- `npm run openapi-spec`: Generate OpenAPI spec into a file
-- `npm run docker:build`: Build a Docker image for this application
-- `npm run docker:run`: Run this application inside a Docker container
-
-## Tests
-
-```sh
-npm test
-```
-
-## What's next
-
-Please check out [LoopBack 4 documentation](https://loopback.io/doc/en/lb4/) to
-understand how you can continue to add features to this application.
-
-[![LoopBack](https://github.com/strongloop/loopback-next/raw/master/docs/site/imgs/branding/Powered-by-LoopBack-Badge-(blue)-@2x.png)](http://loopback.io/)
+- as controller estão em : src\controllers
+- as repositories em : src\repositories
+- os modelos em : src\models
+- com loopback podemos trabalhar com diferentes bancos de dados ao mesmo tempo
+  pois temos configuração sobre as repositories e as conexões de banco de dados
+  pode-se por exemplo ter uma entidade em mongoDB fazendo relação com uma entidade
+  em mysql, estas configurações estão em : src\datasources
