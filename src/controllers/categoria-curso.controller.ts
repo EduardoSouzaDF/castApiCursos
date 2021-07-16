@@ -1,9 +1,10 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
   Filter,
   repository,
-  Where
+  Where,
 } from '@loopback/repository';
 import {
   del,
@@ -13,18 +14,17 @@ import {
   param,
   patch,
   post,
-  requestBody
+  requestBody,
 } from '@loopback/rest';
-import {
-  Categoria,
-  Curso
-} from '../models';
+import {Categoria, Curso} from '../models';
 import {CategoriaRepository} from '../repositories';
 
+@authenticate('jwt')
 export class CategoriaCursoController {
   constructor(
-    @repository(CategoriaRepository) protected categoriaRepository: CategoriaRepository,
-  ) { }
+    @repository(CategoriaRepository)
+    protected categoriaRepository: CategoriaRepository,
+  ) {}
 
   @get('/categorias/{id}/cursos', {
     responses: {
@@ -61,11 +61,12 @@ export class CategoriaCursoController {
           schema: getModelSchemaRef(Curso, {
             title: 'NewCursoInCategoria',
             exclude: ['id'],
-            optional: ['categoriaId']
+            optional: ['categoriaId'],
           }),
         },
       },
-    }) curso: Omit<Curso, 'id'>,
+    })
+    curso: Omit<Curso, 'id'>,
   ): Promise<Curso> {
     return this.categoriaRepository.cursos(id).create(curso);
   }

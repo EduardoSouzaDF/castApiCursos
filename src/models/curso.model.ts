@@ -35,7 +35,7 @@ export class Curso extends Entity {
   qtdAlunos?: number;
 
   @belongsTo(() => Categoria)
-  categoriaId: number;
+  categoriaId: string;
 
   constructor(data?: Partial<Curso>) {
     super(data);

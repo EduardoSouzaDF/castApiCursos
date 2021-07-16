@@ -6,7 +6,7 @@ import {SecurityBindings, securityId, UserProfile} from '@loopback/security';
 export class WhoAmIController {
   constructor(@inject(SecurityBindings.USER) private user: UserProfile) {}
 
-  @authenticate('JWTStrategy')
+  @authenticate('jwt')
   @get('/whoami')
   whoAmI(): string {
     return this.user[securityId];

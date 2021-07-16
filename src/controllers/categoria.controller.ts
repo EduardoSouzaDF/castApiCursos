@@ -1,3 +1,4 @@
+import {authenticate} from '@loopback/authentication';
 import {
   Count,
   CountSchema,
@@ -7,23 +8,24 @@ import {
   Where,
 } from '@loopback/repository';
 import {
-  post,
-  param,
+  del,
   get,
   getModelSchemaRef,
+  param,
   patch,
+  post,
   put,
-  del,
   requestBody,
   response,
 } from '@loopback/rest';
 import {Categoria} from '../models';
 import {CategoriaRepository} from '../repositories';
 
+@authenticate('jwt')
 export class CategoriaController {
   constructor(
     @repository(CategoriaRepository)
-    public categoriaRepository : CategoriaRepository,
+    public categoriaRepository: CategoriaRepository,
   ) {}
 
   @post('/categorias')
@@ -106,7 +108,8 @@ export class CategoriaController {
   })
   async findById(
     @param.path.string('id') id: string,
-    @param.filter(Categoria, {exclude: 'where'}) filter?: FilterExcludingWhere<Categoria>
+    @param.filter(Categoria, {exclude: 'where'})
+    filter?: FilterExcludingWhere<Categoria>,
   ): Promise<Categoria> {
     return this.categoriaRepository.findById(id, filter);
   }

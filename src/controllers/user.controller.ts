@@ -10,7 +10,7 @@ import {
   TokenServiceBindings,
   User,
   UserRepository,
-  UserServiceBindings
+  UserServiceBindings,
 } from '@loopback/authentication-jwt';
 import {inject} from '@loopback/core';
 import {model, property, repository} from '@loopback/repository';
@@ -19,9 +19,9 @@ import {
   getModelSchemaRef,
   post,
   requestBody,
-  SchemaObject
+  SchemaObject,
 } from '@loopback/rest';
-import {SecurityBindings, securityId, UserProfile} from '@loopback/security';
+import {SecurityBindings, UserProfile} from '@loopback/security';
 import {genSalt, hash} from 'bcryptjs';
 import _ from 'lodash';
 
@@ -118,8 +118,8 @@ export class UserController {
   async whoAmI(
     @inject(SecurityBindings.USER)
     currentUserProfile: UserProfile,
-  ): Promise<string> {
-    return currentUserProfile[securityId];
+  ): Promise<any> {
+    return currentUserProfile;
   }
 
   @post('/signup', {
